@@ -103,3 +103,5 @@ GET /api/urls
 ## Validation
 
 `POST /api/urls` validates that `url` is present and a syntactically valid URL. Invalid input returns `400 Bad Request` with details on which field(s) failed.
+
+- **No URL deduplication** — each `POST /api/urls` call always creates a new short code, even for a previously-shortened URL. This is intentional: distinct short codes for the same destination allow independent tracking/expiry per link, rather than treating identical URLs as the same resource.
