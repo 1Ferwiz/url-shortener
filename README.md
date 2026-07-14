@@ -1,5 +1,7 @@
 # URL Shortener API
 
+[![CI](https://github.com/1Ferwiz/url-shortener/actions/workflows/ci.yml/badge.svg)](https://github.com/1Ferwiz/url-shortener/actions/workflows/ci.yml)
+
 A simple REST API for shortening URLs, built with Spring Boot. Demonstrates database persistence, caching, validation, and layered project organization following SOLID principles.
 
 ## Tech Stack
@@ -52,6 +54,18 @@ This starts:
    ./mvnw spring-boot:run
 ```
 The API will be available at `http://localhost:8080`.
+
+
+## CI/CD
+
+Every push and pull request to `main` triggers a GitHub Actions pipeline (`.github/workflows/ci.yml`) that:
+
+1. Spins up ephemeral PostgreSQL and Redis containers
+2. Runs the full test suite against them
+3. Builds a Docker image from the multi-stage `Dockerfile`
+4. On `main` only: pushes the image to GitHub Container Registry (GHCR), tagged with both the commit SHA and `latest`
+
+This confirms the application builds, passes its tests, and produces a working container image on a clean environment for every change — proving it's deployable, even though this project isn't hosted anywhere yet.
 
 ## API Endpoints
 
