@@ -17,5 +17,27 @@ services:
     ports:
       - "6379:6379"
 
+  app:
+    build: .
+    container_name: url-shortener-app
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/url_shortener
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+    ports:
+      - "8080:8080"
+
+  wso2am:
+    image: wso2/wso2am:4.7.0
+    container_name: wso2am
+    ports:
+      - "9443:9443"
+      - "8243:8243"
+      - "8280:8280"
+
+
 volumes:
   postgres_data:

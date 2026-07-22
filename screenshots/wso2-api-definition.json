@@ -1,0 +1,76 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "URLShortenerAPI",
+    "version" : "2.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://localhost:8243/urlshortener/2.0.0"
+  }, {
+    "url" : "http://localhost:8280/urlshortener/2.0.0"
+  } ],
+  "security" : [ {
+    "default" : [ ]
+  } ],
+  "paths" : {
+    "/api/urls" : {
+      "get" : {
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "ok"
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        } ],
+        "x-auth-type" : "Application & Application User",
+        "x-throttling-tier" : "Unlimited"
+      },
+      "post" : {
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "required" : [ "url" ],
+                "type" : "object",
+                "properties" : {
+                  "url" : {
+                    "type" : "string",
+                    "example" : "https://example.com"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "ok"
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        } ],
+        "x-auth-type" : "Application & Application User",
+        "x-throttling-tier" : "5PerMin"
+      }
+    }
+  },
+  "components" : {
+    "securitySchemes" : {
+      "default" : {
+        "type" : "oauth2",
+        "flows" : {
+          "implicit" : {
+            "authorizationUrl" : "https://localhost:8243/authorize",
+            "scopes" : { }
+          }
+        }
+      }
+    }
+  },
+  "x-wso2-api-key-header" : "ApiKey"
+}
